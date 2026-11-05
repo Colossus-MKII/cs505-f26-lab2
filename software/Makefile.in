@@ -1,0 +1,92 @@
+# this Makefile defines the "software" target that builds all software
+ifeq ($(BASE_OUTDIR),)
+    $(error BASE_OUTDIR environment variable not set to output directory)
+endif
+
+CC        := /common/users/shared/fluxlab-tools/rv32ia-ilp32/bin/riscv32-unknown-linux-gnu-gcc
+LD        := /common/users/shared/fluxlab-tools/rv32ia-ilp32/bin/riscv32-unknown-linux-gnu-ld
+STRIP     := /common/users/shared/fluxlab-tools/rv32ia-ilp32/bin/riscv32-unknown-linux-gnu-strip
+OBJDUMP   := /common/users/shared/fluxlab-tools/rv32ia-ilp32/bin/riscv32-unknown-linux-gnu-objdump
+OBJCOPY   := /common/users/shared/fluxlab-tools/rv32ia-ilp32/bin/riscv32-unknown-linux-gnu-objcopy
+CFLAGS    := -march=rv32ia -mabi=ilp32 -nostartfiles -nostdlib -Wa,-mno-arch-attr  
+LDFLAGS   := --section-start=.init=0x80000000 --section-ordering-file=scripts/linker.lds -e entry    
+
+#
+# source file definitions
+#
+# SW_BUILD_VERILATOR_TEMPLATE <bin name> <sources to link> <sources to compile>
+define SW_BUILD_VERILATOR_TEMPLATE
+LINK_OBJS_$(1)     := $$(patsubst %,$(BASE_OUTDIR)/software/objs/%.o,$(2))
+COMPILE_OBJS_$(1)  := $$(patsubst %,$(BASE_OUTDIR)/software/objs/%.o,$(3))
+BUILD_SUBDIRS_$(1) := $$(sort $$(dir $$(COMPILE_OBJS_$(1))))
+ELF_$(1)           := $(BASE_OUTDIR)/software/$(1).elf
+SW_ELFS            := $(SW_ELFS) $$(ELF_$(1))
+
+$$(COMPILE_OBJS_$(1)): $(BASE_OUTDIR)/software/objs/%.o: software/% 
+	mkdir -p $$(BUILD_SUBDIRS_$(1))
+	$(CC) $(CFLAGS) -c $$< -o $$@
+
+$$(ELF_$(1)): $$(LINK_OBJS_$(1))
+	$(LD) $(LDFLAGS) -Map=$$@.map -o $$@ $$^
+endef
+
+SW_ELFS :=
+
+$(eval $(call SW_BUILD_VERILATOR_TEMPLATE,fib,main.S benchmark/fib.S,main.S benchmark/fib.S))
+$(eval $(call SW_BUILD_VERILATOR_TEMPLATE,gcd,main.S benchmark/gcd.S,benchmark/gcd.S))
+$(eval $(call SW_BUILD_VERILATOR_TEMPLATE,popcount,main.S benchmark/popcount.S,benchmark/popcount.S))
+$(eval $(call SW_BUILD_VERILATOR_TEMPLATE,crc32,main.S benchmark/crc32.S,benchmark/crc32.S))
+$(eval $(call SW_BUILD_VERILATOR_TEMPLATE,histogram,main.S benchmark/histogram.S,benchmark/histogram.S))
+$(eval $(call SW_BUILD_VERILATOR_TEMPLATE,sieve127,main.S benchmark/sieve127.S,benchmark/sieve127.S))
+$(eval $(call SW_BUILD_VERILATOR_TEMPLATE,sqrt,main.S benchmark/sqrt.S,benchmark/sqrt.S))
+
+# Standalone RV32I instruction tests. Each source provides its own entry point.
+RV32I_SELF_TESTS := upper op-imm shift-imm op branch jump load store x0 system-ebreak
+RV32I_EXCEPTION_TESTS := system-ecall illegal exception-imem-misaligned exception-imem-bus exception-dmem-bus
+RV32I_INSTRUCTION_TESTS := $(RV32I_SELF_TESTS) $(RV32I_EXCEPTION_TESTS)
+
+$(foreach test,$(RV32I_INSTRUCTION_TESTS),\
+    $(eval $(call SW_BUILD_VERILATOR_TEMPLATE,rv32i-$(test),instruction-tests/$(test).S,instruction-tests/$(test).S)))
+
+SW_DASMS := $(SW_ELFS:%.elf=%.dasm)
+SW_BINS  := $(SW_ELFS:%.elf=%.bin)
+SW_HEXS  := $(SW_ELFS:%.elf=%.hex)
+
+QEMU_SANITY_CHECK := $(BASE_OUTDIR)/software/qemu-sanity-check.elf
+QEMU_SANITY_OBJS := $(addprefix $(BASE_OUTDIR)/software/objs/benchmark/,fib.S.o gcd.S.o popcount.S.o crc32.S.o)
+QEMU_SANITY_OBJS += $(addprefix $(BASE_OUTDIR)/software/objs/qemu/,histogram.S.o sieve127.S.o sqrt.S.o)
+
+# QEMU needs writable storage for the arrays embedded in the bare-metal images.
+$(BASE_OUTDIR)/software/objs/qemu/%.S.o: software/benchmark/%.S software/Makefile.in
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) -DQEMU_SANITY_CHECK -c $< -o $@
+
+#
+# recipes
+#
+# 	-Wl,-rpath=/common/users/shared/fluxlab-tools/rv32ia-ilp32/sysroot/lib/ld-linux-riscv32-ilp32.so.1
+.PHONY: software
+software: $(SW_BINS) $(SW_DASMS) $(SW_ELFS) $(SW_HEXS) $(QEMU_SANITY_CHECK)
+
+$(QEMU_SANITY_CHECK): software/qemu-sanity-check.c $(QEMU_SANITY_OBJS) software/Makefile.in
+	@echo "Linking QEMU sanity-check executable..."
+	$(CC) software/qemu-sanity-check.c $(QEMU_SANITY_OBJS) -march=rv32ia -mabi=ilp32 -o $@
+	# qemu-riscv32 -L /common/users/shared/fluxlab-tools/rv32ia-ilp32/sysroot $(QEMU_SANITY_CHECK)
+
+$(SW_DASMS): %.dasm: %.elf
+	$(OBJDUMP) -D $^ > $@
+
+$(SW_BINS): %.bin: %.elf
+	$(OBJCOPY) -O binary -j .init -j .text -j .fini $^ $@
+
+$(SW_HEXS): %.hex: %.bin
+	hexdump -v -e '1/4 "%08x\n"' $^ > $@
+	awk -v filename=$@ '{                        \
+		print substr($$0,1,2) > (filename ".76"); \
+		print substr($$0,3,2) > (filename ".54"); \
+		print substr($$0,5,2) > (filename ".32"); \
+		print substr($$0,7,2) > (filename ".10"); \
+	}' $@
+
+$(BASE_OUTDIR)/software:
+	mkdir -p $@

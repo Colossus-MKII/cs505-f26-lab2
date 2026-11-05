@@ -1,0 +1,33 @@
+`verilator_config
+// lint_off -rule UNUSEDPARAM
+// lint_off -rule UNUSEDSIGNAL
+// lint_off -rule SPECIFYIGN
+// lint_off -rule UNOPTFLAT
+// lint_off -rule PROCASSINIT -file "*soc_top.v"
+// lint_off -file "*netlist.v"
+
+lint_off -rule EOFNEWLINE
+lint_off -rule TIMESCALEMOD
+
+// Testbench drivers/checkers use blocking assignments to update their models
+// immediately, before the next DUT clock edge.
+lint_off -rule BLKSEQ -file "*cpu_tb.v"
+
+// A netlist testbench needs exception constants, not every RTL opcode/state.
+lint_off -rule UNUSEDPARAM -file "*rv32i-memory/config.vh"
+lint_off -rule UNUSEDPARAM -file "*rv32i-common/params.vh"
+lint_off -rule UNUSEDPARAM -file "*rv32i-single-cycle/params.vh"
+lint_off -rule UNUSEDPARAM -file "*rv32i-multi-cycle-single-bus/params.vh"
+
+// Waive only the input slices intentionally omitted by these computations.
+lint_off -rule UNUSEDSIGNAL -file "*rv32i-common/immgen.v" -match "*inst_i*6:0*"
+lint_off -rule UNUSEDSIGNAL -file "*rv32i-multi-cycle-single-bus/cpu.v" -match "*pc_i*31:2*"
+lint_off -rule UNUSEDSIGNAL -file "*rv32i-multi-cycle-single-bus/cpu_tb.v" -match "*canonical_address*31:10,1:0*"
+
+// The timing-check notifier is unused in functional standard-cell simulation.
+lint_off -rule UNDRIVEN -file "*asap7sc7p5t_ALL_LVT_TT_nldm_211120.v" -match "*'notifier'*"
+lint_off -rule BLKSEQ -file "*asap7sc7p5t_ALL_LVT_TT_nldm_211120.v"
+lint_off -rule SPECIFYIGN -file "*asap7sc7p5t_ALL_LVT_TT_nldm_211120.v"
+lint_off -rule IMPLICIT -file "*asap7sc7p5t_ALL_LVT_TT_nldm_211120.v"
+lint_off -rule SPECIFYIGN -file "*NangateOpenCellLibrary.v"
+lint_off -rule IMPLICIT -file "*NangateOpenCellLibrary.v"
