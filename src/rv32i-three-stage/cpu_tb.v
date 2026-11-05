@@ -111,12 +111,12 @@ module tb;
         repeat (5) @(negedge clock_i);
 
         $display("[PHASE] CPU program execution: %0s", hex_filename);
+        reset_ni = 1;
+        // Record execution only, starting before the first active CPU edge.
         if ($value$plusargs("vcd=%s", vcd_filename)) begin
             $dumpfile(vcd_filename);
             $dumpvars(0);
         end
-        reset_ni = 1;
-
         while (!finished) begin
             // Match the SoC harness: sample before the CPU's nonblocking updates.
             @(posedge clock_i);

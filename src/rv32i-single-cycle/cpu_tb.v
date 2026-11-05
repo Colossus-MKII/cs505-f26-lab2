@@ -94,17 +94,6 @@ module tb
     endtask
 
     initial begin
-        // dump VCD file
-        if ($test$plusargs("vcd"))
-        begin
-            if ($value$plusargs("vcd=%s", vcd_name))
-            begin
-                $display("Dumping VCD: %0s", vcd_name);
-                $dumpfile(vcd_name);
-                $dumpvars(0);
-            end
-        end
-
         // read in hex file
         cycle_counter = 0;
         max_cycles = 1000;
@@ -218,11 +207,22 @@ module tb
     
     initial 
     begin
-        // reset for 5.5 cycles
+        // reset for five cycles
         reset_ni = 0;
 		repeat (5) @(negedge clock_i);
 		reset_ni = 1;
         $display("[INFO] reset complete");
+
+        // Record execution only, starting before the first active CPU edge.
+        if ($test$plusargs("vcd"))
+        begin
+            if ($value$plusargs("vcd=%s", vcd_name))
+            begin
+                $display("Dumping VCD: %0s", vcd_name);
+                $dumpfile(vcd_name);
+                $dumpvars(0);
+            end
+        end
 	end
 
 	always @(posedge clock_i) 

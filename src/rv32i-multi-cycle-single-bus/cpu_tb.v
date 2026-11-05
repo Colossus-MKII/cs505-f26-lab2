@@ -191,16 +191,6 @@ module tb
         for (memory_index = 0; memory_index < MEMORY_WORDS; memory_index = memory_index + 1)
             memory[memory_index] = 32'hdeadbeef;
 
-        if ($test$plusargs("vcd"))
-        begin
-            if ($value$plusargs("vcd=%s", vcd_name))
-            begin
-                $display("Dumping VCD: %0s", vcd_name);
-                $dumpfile(vcd_name);
-                $dumpvars(0);
-            end
-        end
-
         if (!$value$plusargs("hex=%s", hex_filename))
         begin
             $display("[FAIL] Missing +hex=<program.hex>");
@@ -284,6 +274,17 @@ module tb
         repeat (5) @(negedge clock_i);
         reset_ni = 1;
         $display("[INFO] reset complete");
+
+        // Record execution only, starting before the first active CPU edge.
+        if ($test$plusargs("vcd"))
+        begin
+            if ($value$plusargs("vcd=%s", vcd_name))
+            begin
+                $display("Dumping VCD: %0s", vcd_name);
+                $dumpfile(vcd_name);
+                $dumpvars(0);
+            end
+        end
     end
 
     always @(posedge clock_i)

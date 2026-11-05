@@ -30,14 +30,6 @@ module tb;
     integer cycle_counter = 0;
     reg [32*255:0] vcd_name;
 
-    initial begin
-        if ($test$plusargs("vcd") && $value$plusargs("vcd=%s", vcd_name)) begin
-            $display("Dumping VCD: %0s", vcd_name);
-            $dumpfile(vcd_name);
-            $dumpvars(0);
-        end
-    end
-
     rv32i_three_stage dut
     (
         .clock_i(clock_i),
@@ -92,6 +84,13 @@ module tb;
         delayed_load_cycles = 0;
         repeat (5) @(negedge clock_i);
         reset_ni = 1'b1;
+
+        // Skip initial reset; retain later resets used by the decode tests.
+        if ($test$plusargs("vcd") && $value$plusargs("vcd=%s", vcd_name)) begin
+            $display("Dumping VCD: %0s", vcd_name);
+            $dumpfile(vcd_name);
+            $dumpvars(0);
+        end
     end
 
     always @(posedge clock_i)
