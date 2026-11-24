@@ -30,6 +30,7 @@ VERILATOR_DEFS  := $(SKYHD130_DEFS)
 ###############################################################################
 # SOFTWARE: run-time hex files
 ###############################################################################
+RAM_CONFIG      := src/rv32i-memory/config.vh
 SIM_HEX_PATH    := $(BASE_OUTDIR)/software
 SIM_HEX         ?= rv32i-op.hex
 SIM_ARGS        ?=
@@ -51,7 +52,7 @@ export SIM_HEX_PATH SIM_HEX SIM_ARGS
 
 .PHONY: default software
 default: software
-	python3 build.py build
+	python3 build.py $(BASE_OUTDIR)
 
 $(BASE_OUTDIR)/%/synth:
 	mkdir -p $@
@@ -128,7 +129,7 @@ $(BASE_OUTDIR)/%/sta-power-statistical/netlist.rpt: $(BASE_OUTDIR)/%/synth/netli
 ###############################################################################
 # Yosys (netlist synthesis)
 ###############################################################################
-$(BASE_OUTDIR)/%/synth/netlist.v: $(MODULE_SOURCES) $(YOSYS_SCRIPT) $(TECHLIB_LIB_FILENAME) | $(BASE_OUTDIR)/%/synth
+$(BASE_OUTDIR)/%/synth/netlist.v: $(MODULE_SOURCES) $(RAM_CONFIG) $(YOSYS_SCRIPT) $(TECHLIB_LIB_FILENAME) | $(BASE_OUTDIR)/%/synth
 	$(info [MAKE] Synthesizing Netlist)
 	export SYNTH_OUTDIR=$(BASE_OUTDIR)/$*/synth; \
 	export SYNTH_TECHLIB_FILE=$(TECHLIB_LIB_FILENAME); \
@@ -142,16 +143,16 @@ $(BASE_OUTDIR)/%/synth/netlist.v: $(MODULE_SOURCES) $(YOSYS_SCRIPT) $(TECHLIB_LI
 # Verilator compilation (to generate the compiled testbenches)
 ###############################################################################
 # based on netlist
-$(BASE_OUTDIR)/%/sim-netlist/$(VERILATOR_BIN): $(BASE_OUTDIR)/%/synth/netlist.v $(TESTBENCH_SOURCES) $(TECHLIB_SIM_FILENAMES) scripts/verilator.vlt | $(BASE_OUTDIR)/%/sim-netlist
+$(BASE_OUTDIR)/%/sim-netlist/$(VERILATOR_BIN): $(BASE_OUTDIR)/%/synth/netlist.v $(TESTBENCH_SOURCES) $(TECHLIB_SIM_FILENAMES) scripts/verilator.vlt $(RAM_CONFIG) | $(BASE_OUTDIR)/%/sim-netlist
 	$(info [MAKE] Simulating verilog)
 	$(VERILATOR) -j 10 -Wno-fatal --cc --binary -exe --build --Mdir $(BASE_OUTDIR)/$*/sim-netlist \
-		$(VERILATOR_FLAGS) $(VERILATOR_DEFS) $^ --top-module $(TESTBENCH_TOP_NAME) 2>&1 | tee $(BASE_OUTDIR)/$*/sim-netlist/compile-stdout.log
+		$(VERILATOR_FLAGS) $(VERILATOR_DEFS) $(filter-out $(RAM_CONFIG),$^) --top-module $(TESTBENCH_TOP_NAME) 2>&1 | tee $(BASE_OUTDIR)/$*/sim-netlist/compile-stdout.log
 
 # based on sources
-$(BASE_OUTDIR)/%/sim-source/$(VERILATOR_BIN): $(MODULE_SOURCES) $(TESTBENCH_SOURCES) $(TECHLIB_SIM_FILENAMES) scripts/verilator.vlt | $(BASE_OUTDIR)/%/sim-source
+$(BASE_OUTDIR)/%/sim-source/$(VERILATOR_BIN): $(MODULE_SOURCES) $(TESTBENCH_SOURCES) $(TECHLIB_SIM_FILENAMES) scripts/verilator.vlt $(RAM_CONFIG) | $(BASE_OUTDIR)/%/sim-source
 	$(info [MAKE] Simulating verilog)
 	$(VERILATOR) -j 10 -Wno-fatal --cc --binary -exe --build --Mdir $(BASE_OUTDIR)/$*/sim-source \
-		$(VERILATOR_FLAGS) $(VERILATOR_DEFS) $^ --top-module $(TESTBENCH_TOP_NAME) 2>&1 | tee $(BASE_OUTDIR)/$*/sim-source/compile-stdout.log
+		$(VERILATOR_FLAGS) $(VERILATOR_DEFS) $(filter-out $(RAM_CONFIG),$^) --top-module $(TESTBENCH_TOP_NAME) 2>&1 | tee $(BASE_OUTDIR)/$*/sim-source/compile-stdout.log
 
 ###############################################################################
 # Verilator runs (to generate VCDs using different softwares)

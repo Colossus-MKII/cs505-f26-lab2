@@ -40,6 +40,10 @@ $(eval $(call SW_BUILD_VERILATOR_TEMPLATE,histogram,main.S benchmark/histogram.S
 $(eval $(call SW_BUILD_VERILATOR_TEMPLATE,sieve127,main.S benchmark/sieve127.S,benchmark/sieve127.S))
 $(eval $(call SW_BUILD_VERILATOR_TEMPLATE,sqrt,main.S benchmark/sqrt.S,benchmark/sqrt.S))
 
+CUSTOM_BENCHMARKS := low-ilp high-ilp low-energy high-energy
+$(foreach name,$(CUSTOM_BENCHMARKS),\
+    $(eval $(call SW_BUILD_VERILATOR_TEMPLATE,$(name),main.S benchmark/$(name).S,benchmark/$(name).S)))
+
 # Standalone RV32I instruction tests. Each source provides its own entry point.
 RV32I_SELF_TESTS := upper op-imm shift-imm op branch jump load store x0 system-ebreak
 RV32I_EXCEPTION_TESTS := system-ecall illegal exception-imem-misaligned exception-imem-bus exception-dmem-bus

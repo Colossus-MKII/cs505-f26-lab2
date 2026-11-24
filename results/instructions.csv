@@ -1,0 +1,12 @@
+workload,instructions,branches,taken_branches,jumps,loads,stores,image_bytes
+fib,307,48,47,6,49,3,192
+gcd,30,7,4,5,1,2,176
+popcount,38,0,0,4,1,2,208
+crc32,584,82,71,4,10,2,224
+histogram,9922,712,710,2,712,705,240
+sieve127,791,279,223,2,63,124,240
+sqrt,12649,4224,3347,2,0,1,176
+low-ilp,992,98,97,2,0,1,144
+high-ilp,1007,106,97,2,0,1,208
+low-energy,991,49,48,2,0,1,176
+high-energy,1008,55,54,2,440,441,192

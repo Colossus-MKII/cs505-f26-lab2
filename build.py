@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 import sys
-import os
-import time
-import subprocess as sp
-from pathlib import Path
+import argparse
 
 import scripts.build_tools as build_tools
 
@@ -46,7 +43,9 @@ def configure_cpu_build() -> dict:
         "crc32.hex" : [],
         "histogram.hex" : ["+max_cycles=200000"],
         "sieve127.hex" : ["+max_cycles=200000"],
-        "sqrt.hex" : ["+max_cycles=200000"]
+        "sqrt.hex" : ["+max_cycles=200000"],
+        **{f"{name}.hex": ["+max_cycles=20000"]
+           for name in ("low-ilp", "high-ilp", "low-energy", "high-energy")}
     }
 
     #
@@ -113,10 +112,15 @@ def configure_cpu_build() -> dict:
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 2:
-        print(f"[ERROR] usage: {sys.argv[0]} <str: name of build output directory>")
-        sys.exit(-1)
-
+    parser = argparse.ArgumentParser(description="Build and benchmark the RV32I designs.")
+    parser.add_argument("output", help="build directory, e.g. build")
+    parser.add_argument("--tech", choices=build_tools.TECH_LIBS, nargs="+", default=["asap7"])
+    parser.add_argument("--soc-only", action="store_true")
+    parser.add_argument("--jobs", type=int, default=2)
+    args = parser.parse_args()
+    if args.jobs < 1:
+        parser.error("--jobs must be positive")
     targets = configure_cpu_build()
-    # sys.exit(build_tools.build_all_targets(targets, ["asap7"], sys.argv[1], 16))
-    sys.exit(build_tools.build_all_targets(targets, ["asap7", "nan45", "sky130"], sys.argv[1], 16))
+    if args.soc_only:
+        targets = {name: target for name, target in targets.items() if name.endswith("-soc")}
+    sys.exit(build_tools.build_all_targets(targets, args.tech, args.output, args.jobs))

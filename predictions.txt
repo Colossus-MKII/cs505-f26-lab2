@@ -1,0 +1,11 @@
+Pre-measurement predictions • 7 nm, 256 B
+Metric | CPU (ideal memory) | SoC (implemented memory)
+Smallest area | Multi-cycle: one internal bus and a time-shared datapath. | Multi-cycle: it can also share one RAM access port between instructions and data.
+Fewest cycles | Single-cycle: one instruction per active clock, including dependent instructions. | Single-cycle: the on-chip RAM is combinational on reads and does not add a clocked wait.
+Shortest period | Multi-cycle: its controller splits instruction processing into small steps. | Multi-cycle: one RAM lookup per step avoids the single-cycle fetch-to-data-read chain.
+Fastest low-ilp | Pipeline: ALU forwarding should sustain adjacent dependent arithmetic at a shorter period than single-cycle. | Pipeline: the dependency still forwards and fetch/data logic is separated by pipeline registers.
+Fastest high-ilp | Pipeline: several independent operations can occupy different stages simultaneously. | Pipeline: independent arithmetic leaves the data memory idle, and sequential fetches can overlap execution.
+Fastest suite overall | Pipeline: the shorter period should outweigh fill, flush and load delays across the suite. | Pipeline: dividing the SoC path should save more time than control hazards cost on average.
+Lowest energy across suite | Single-cycle: fewest clock edges and no interstage registers. | Pipeline: a large RAM and its clocked cells contribute every cycle, but the shorter execution time may limit leakage enough to offset stalls and register overhead.
+Lowest power across suite | Multi-cycle: only a portion of the shared datapath needs to switch in each step, although a high operating frequency could reverse this. | Multi-cycle: a single RAM port and one memory operation per step should reduce switched capacitance.
+For energy and power, compare geometric means across the same eleven workloads, each design at its own critical-path frequency. The latency prediction uses the same suite weighting as the requested normalized comparisons.

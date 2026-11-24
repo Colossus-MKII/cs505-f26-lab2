@@ -69,7 +69,7 @@ def build_all_targets(target_list: list, techlib_list: dict, build_dirname: str,
                 "env" : env,
                 "stdout" : out_file,
                 "stderr" : err_file,
-                "args" : ["make", f"{target_fullname}/.stamp.build", "-r"]
+                "args" : ["make", f"BASE_OUTDIR={build_dirname}", f"{target_fullname}/.stamp.build", "-r"]
             })
             job_deps[build_job_idx] = ()
 
@@ -95,7 +95,7 @@ def build_all_targets(target_list: list, techlib_list: dict, build_dirname: str,
                     "env" : env,
                     "stdout" : out_file,
                     "stderr" : err_file,
-                    "args" : ["make", f"{target_fullname}/.stamp.run", "-r"]
+                    "args" : ["make", f"BASE_OUTDIR={build_dirname}", f"{target_fullname}/.stamp.run", "-r"]
                 })
                 job_deps[run_job_idx] = (build_job_idx,)
 
