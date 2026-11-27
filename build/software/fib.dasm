@@ -1,0 +1,67 @@
+
+build/software/fib.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .init:
+
+80000000 <entry>:
+80000000:	00000117          	auipc	sp,0x0
+80000004:	0c010113          	addi	sp,sp,192 # 800000c0 <stack_hi>
+80000008:	014000ef          	jal	8000001c <main>
+8000000c:	10000593          	li	a1,256
+80000010:	00153513          	seqz	a0,a0
+80000014:	00a5a223          	sw	a0,4(a1)
+80000018:	00100073          	ebreak
+
+Disassembly of section .text:
+
+8000001c <main>:
+8000001c:	ff010113          	addi	sp,sp,-16
+80000020:	00112623          	sw	ra,12(sp)
+80000024:	02f00513          	li	a0,47
+80000028:	01c000ef          	jal	80000044 <get_nth_fibonacci>
+8000002c:	b11925b7          	lui	a1,0xb1192
+80000030:	4e158593          	addi	a1,a1,1249 # b11924e1 <__global_pointer$+0x31190c21>
+80000034:	40b50533          	sub	a0,a0,a1
+80000038:	00c12083          	lw	ra,12(sp)
+8000003c:	01010113          	addi	sp,sp,16
+80000040:	00008067          	ret
+
+80000044 <get_nth_fibonacci>:
+80000044:	ff010113          	addi	sp,sp,-16
+80000048:	00a12623          	sw	a0,12(sp)
+8000004c:	00c12703          	lw	a4,12(sp)
+80000050:	00100793          	li	a5,1
+80000054:	02e7e663          	bltu	a5,a4,80000080 <get_nth_fibonacci+0x3c>
+80000058:	00c12503          	lw	a0,12(sp)
+8000005c:	01010113          	addi	sp,sp,16
+80000060:	00008067          	ret
+80000064:	00f68533          	add	a0,a3,a5
+80000068:	00170713          	addi	a4,a4,1
+8000006c:	00078693          	mv	a3,a5
+80000070:	00050793          	mv	a5,a0
+80000074:	00c12603          	lw	a2,12(sp)
+80000078:	fee676e3          	bgeu	a2,a4,80000064 <get_nth_fibonacci+0x20>
+8000007c:	fe1ff06f          	j	8000005c <get_nth_fibonacci+0x18>
+80000080:	00200713          	li	a4,2
+80000084:	00000513          	li	a0,0
+80000088:	00000693          	li	a3,0
+8000008c:	fe9ff06f          	j	80000074 <get_nth_fibonacci+0x30>
+
+Disassembly of section .fini:
+
+80000090 <death_loop>:
+80000090:	0000006f          	j	80000090 <death_loop>
+80000094:	00000013          	nop
+80000098:	00000013          	nop
+8000009c:	00000013          	nop
+
+800000a0 <stack_lo>:
+800000a0:	00000013          	nop
+800000a4:	00000013          	nop
+800000a8:	00000013          	nop
+800000ac:	00000013          	nop
+800000b0:	00000013          	nop
+800000b4:	00000013          	nop
+800000b8:	00000013          	nop
+800000bc:	00000013          	nop

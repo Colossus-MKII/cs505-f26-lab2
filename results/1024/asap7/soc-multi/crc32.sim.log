@@ -1,0 +1,8 @@
+[PHASE] Loading program: /common/home/jw2046/cs505-f26-lab2/build/software/crc32.hex
+[PHASE] CPU program execution
+[INFO] exception vector=0x00000002
+TEST_RESULT PASS cycles=3657
+- src/rv32i-common-tb/soc_tb_io.vh:50: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.053 devel
+- Verilator: $finish at 57us; walltime 9.541 s; speed 5.986 us/s
+- Verilator: cpu 9.104 s on 1 threads; allocated 40 MB

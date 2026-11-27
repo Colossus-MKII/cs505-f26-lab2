@@ -1,0 +1,20 @@
+[INFO] reset complete
+Dumping VCD: /tmp/tmpcte4yin0/waves.vcd
+[heartbeat] cycle count: 100
+[heartbeat] cycle count: 200
+[heartbeat] cycle count: 300
+[heartbeat] cycle count: 400
+[heartbeat] cycle count: 500
+[heartbeat] cycle count: 600
+[heartbeat] cycle count: 700
+[heartbeat] cycle count: 800
+[heartbeat] cycle count: 900
+[heartbeat] cycle count: 1000
+MMIO OUT: 0x00000001
+[INFO] Simulation halted on cycle 1008 due to exception
+    > EXCEPTION_EBREAK
+TEST_RESULT PASS cycles=1008
+- src/rv32i-single-cycle/cpu_tb.v:92: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.053 devel
+- Verilator: $finish at 10us; walltime 1.190 s; speed 8.507 us/s
+- Verilator: cpu 1.188 s on 1 threads; allocated 14 MB

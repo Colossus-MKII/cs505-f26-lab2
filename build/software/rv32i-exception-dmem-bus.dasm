@@ -1,0 +1,10 @@
+
+build/software/rv32i-exception-dmem-bus.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .init:
+
+80000000 <entry>:
+80000000:	900002b7          	lui	t0,0x90000
+80000004:	0002a303          	lw	t1,0(t0) # 90000000 <__global_pointer$+0xfffe7f4>
+80000008:	00100073          	ebreak

@@ -1,0 +1,8 @@
+[PHASE] CPU program execution: /common/home/jw2046/cs505-f26-lab2/build/software/sqrt.hex
+MMIO OUT: 0x00000001
+[INFO] exception vector=0x00000002
+TEST_RESULT PASS cycles=16000
+- src/rv32i-three-stage/cpu_tb.v:84: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.053 devel
+- Verilator: $finish at 160us; walltime 25.147 s; speed 6.364 us/s
+- Verilator: cpu 24.917 s on 1 threads; allocated 15 MB

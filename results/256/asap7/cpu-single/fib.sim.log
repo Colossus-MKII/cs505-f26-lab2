@@ -1,0 +1,13 @@
+[INFO] reset complete
+Dumping VCD: /tmp/cs505-jw2046-matrix/256/asap7/cpu-single/fib.vcd
+[heartbeat] cycle count: 100
+[heartbeat] cycle count: 200
+[heartbeat] cycle count: 300
+MMIO OUT: 0x00000001
+[INFO] Simulation halted on cycle 307 due to exception
+    > EXCEPTION_EBREAK
+TEST_RESULT PASS cycles=307
+- src/rv32i-single-cycle/cpu_tb.v:92: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.053 devel
+- Verilator: $finish at 3us; walltime 0.345 s; speed 9.019 us/s
+- Verilator: cpu 0.345 s on 1 threads; allocated 14 MB

@@ -1,0 +1,54 @@
+
+build/software/rv32i-x0.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .init:
+
+80000000 <entry>:
+80000000:	00000313          	li	t1,0
+80000004:	07b00013          	li	zero,123
+80000008:	00000293          	li	t0,0
+8000000c:	00628e63          	beq	t0,t1,80000028 <entry+0x28>
+80000010:	00000f37          	lui	t5,0x0
+80000014:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000018:	00000fb7          	lui	t6,0x0
+8000001c:	385f8f93          	addi	t6,t6,901 # 385 <entry-0x7ffffc7b>
+80000020:	01ff2023          	sw	t6,0(t5)
+80000024:	00100073          	ebreak
+80000028:	12345037          	lui	zero,0x12345
+8000002c:	00600e63          	beq	zero,t1,80000048 <entry+0x48>
+80000030:	00000f37          	lui	t5,0x0
+80000034:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000038:	00000fb7          	lui	t6,0x0
+8000003c:	386f8f93          	addi	t6,t6,902 # 386 <entry-0x7ffffc7a>
+80000040:	01ff2023          	sw	t6,0(t5)
+80000044:	00100073          	ebreak
+80000048:	00500393          	li	t2,5
+8000004c:	00738033          	add	zero,t2,t2
+80000050:	00600e63          	beq	zero,t1,8000006c <entry+0x6c>
+80000054:	00000f37          	lui	t5,0x0
+80000058:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+8000005c:	00000fb7          	lui	t6,0x0
+80000060:	387f8f93          	addi	t6,t6,903 # 387 <entry-0x7ffffc79>
+80000064:	01ff2023          	sw	t6,0(t5)
+80000068:	00100073          	ebreak
+8000006c:	00000e17          	auipc	t3,0x0
+80000070:	040e0e13          	addi	t3,t3,64 # 800000ac <test_data>
+80000074:	000e2003          	lw	zero,0(t3)
+80000078:	00600e63          	beq	zero,t1,80000094 <entry+0x94>
+8000007c:	00000f37          	lui	t5,0x0
+80000080:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000084:	00000fb7          	lui	t6,0x0
+80000088:	388f8f93          	addi	t6,t6,904 # 388 <entry-0x7ffffc78>
+8000008c:	01ff2023          	sw	t6,0(t5)
+80000090:	00100073          	ebreak
+80000094:	00000f37          	lui	t5,0x0
+80000098:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+8000009c:	00000fb7          	lui	t6,0x0
+800000a0:	001f8f93          	addi	t6,t6,1 # 1 <entry-0x7fffffff>
+800000a4:	01ff2023          	sw	t6,0(t5)
+800000a8:	00100073          	ebreak
+
+800000ac <test_data>:
+800000ac:	3210                	.insn	2, 0x3210
+800000ae:	7654                	.insn	2, 0x7654

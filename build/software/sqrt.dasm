@@ -1,0 +1,60 @@
+
+build/software/sqrt.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .init:
+
+80000000 <entry>:
+80000000:	00000117          	auipc	sp,0x0
+80000004:	0b010113          	addi	sp,sp,176 # 800000b0 <stack_hi>
+80000008:	014000ef          	jal	8000001c <sqrt_benchmark>
+8000000c:	10000593          	li	a1,256
+80000010:	00153513          	seqz	a0,a0
+80000014:	00a5a223          	sw	a0,4(a1)
+80000018:	00100073          	ebreak
+
+Disassembly of section .text:
+
+8000001c <sqrt_benchmark>:
+8000001c:	00000513          	li	a0,0
+80000020:	08000593          	li	a1,128
+80000024:	00010637          	lui	a2,0x10
+80000028:	fff60613          	addi	a2,a2,-1 # ffff <entry-0x7fff0001>
+8000002c:	000106b7          	lui	a3,0x10
+80000030:	00168693          	addi	a3,a3,1 # 10001 <entry-0x7ffeffff>
+80000034:	00060293          	mv	t0,a2
+80000038:	00000313          	li	t1,0
+8000003c:	400003b7          	lui	t2,0x40000
+80000040:	00730e33          	add	t3,t1,t2
+80000044:	00135313          	srli	t1,t1,0x1
+80000048:	01c2e663          	bltu	t0,t3,80000054 <sqrt_benchmark+0x38>
+8000004c:	41c282b3          	sub	t0,t0,t3
+80000050:	00730333          	add	t1,t1,t2
+80000054:	0023d393          	srli	t2,t2,0x2
+80000058:	fe0394e3          	bnez	t2,80000040 <sqrt_benchmark+0x24>
+8000005c:	00650533          	add	a0,a0,t1
+80000060:	00d60633          	add	a2,a2,a3
+80000064:	fff58593          	addi	a1,a1,-1
+80000068:	fc0596e3          	bnez	a1,80000034 <sqrt_benchmark+0x18>
+8000006c:	0003d2b7          	lui	t0,0x3d
+80000070:	ab228293          	addi	t0,t0,-1358 # 3cab2 <entry-0x7ffc354e>
+80000074:	40550533          	sub	a0,a0,t0
+80000078:	00008067          	ret
+
+Disassembly of section .fini:
+
+80000080 <death_loop>:
+80000080:	0000006f          	j	80000080 <death_loop>
+80000084:	00000013          	nop
+80000088:	00000013          	nop
+8000008c:	00000013          	nop
+
+80000090 <stack_lo>:
+80000090:	00000013          	nop
+80000094:	00000013          	nop
+80000098:	00000013          	nop
+8000009c:	00000013          	nop
+800000a0:	00000013          	nop
+800000a4:	00000013          	nop
+800000a8:	00000013          	nop
+800000ac:	00000013          	nop

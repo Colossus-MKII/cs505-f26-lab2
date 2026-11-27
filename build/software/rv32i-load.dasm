@@ -1,0 +1,113 @@
+
+build/software/rv32i-load.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .init:
+
+80000000 <entry>:
+80000000:	00000297          	auipc	t0,0x0
+80000004:	19828293          	addi	t0,t0,408 # 80000198 <test_data>
+80000008:	00028303          	lb	t1,0(t0)
+8000000c:	00100e93          	li	t4,1
+80000010:	01d30e63          	beq	t1,t4,8000002c <entry+0x2c>
+80000014:	00000f37          	lui	t5,0x0
+80000018:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+8000001c:	00000fb7          	lui	t6,0x0
+80000020:	2bdf8f93          	addi	t6,t6,701 # 2bd <entry-0x7ffffd43>
+80000024:	01ff2023          	sw	t6,0(t5)
+80000028:	00100073          	ebreak
+8000002c:	00128303          	lb	t1,1(t0)
+80000030:	07f00e93          	li	t4,127
+80000034:	01d30e63          	beq	t1,t4,80000050 <entry+0x50>
+80000038:	00000f37          	lui	t5,0x0
+8000003c:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000040:	00000fb7          	lui	t6,0x0
+80000044:	2bef8f93          	addi	t6,t6,702 # 2be <entry-0x7ffffd42>
+80000048:	01ff2023          	sw	t6,0(t5)
+8000004c:	00100073          	ebreak
+80000050:	00228303          	lb	t1,2(t0)
+80000054:	fff00e93          	li	t4,-1
+80000058:	01d30e63          	beq	t1,t4,80000074 <entry+0x74>
+8000005c:	00000f37          	lui	t5,0x0
+80000060:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000064:	00000fb7          	lui	t6,0x0
+80000068:	2bff8f93          	addi	t6,t6,703 # 2bf <entry-0x7ffffd41>
+8000006c:	01ff2023          	sw	t6,0(t5)
+80000070:	00100073          	ebreak
+80000074:	00328303          	lb	t1,3(t0)
+80000078:	f8000e93          	li	t4,-128
+8000007c:	01d30e63          	beq	t1,t4,80000098 <entry+0x98>
+80000080:	00000f37          	lui	t5,0x0
+80000084:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000088:	00000fb7          	lui	t6,0x0
+8000008c:	2c0f8f93          	addi	t6,t6,704 # 2c0 <entry-0x7ffffd40>
+80000090:	01ff2023          	sw	t6,0(t5)
+80000094:	00100073          	ebreak
+80000098:	0022c303          	lbu	t1,2(t0)
+8000009c:	0ff00e93          	li	t4,255
+800000a0:	01d30e63          	beq	t1,t4,800000bc <entry+0xbc>
+800000a4:	00000f37          	lui	t5,0x0
+800000a8:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+800000ac:	00000fb7          	lui	t6,0x0
+800000b0:	2c1f8f93          	addi	t6,t6,705 # 2c1 <entry-0x7ffffd3f>
+800000b4:	01ff2023          	sw	t6,0(t5)
+800000b8:	00100073          	ebreak
+800000bc:	0032c303          	lbu	t1,3(t0)
+800000c0:	08000e93          	li	t4,128
+800000c4:	01d30e63          	beq	t1,t4,800000e0 <entry+0xe0>
+800000c8:	00000f37          	lui	t5,0x0
+800000cc:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+800000d0:	00000fb7          	lui	t6,0x0
+800000d4:	2c2f8f93          	addi	t6,t6,706 # 2c2 <entry-0x7ffffd3e>
+800000d8:	01ff2023          	sw	t6,0(t5)
+800000dc:	00100073          	ebreak
+800000e0:	00029303          	lh	t1,0(t0)
+800000e4:	00008eb7          	lui	t4,0x8
+800000e8:	f01e8e93          	addi	t4,t4,-255 # 7f01 <entry-0x7fff80ff>
+800000ec:	01d30e63          	beq	t1,t4,80000108 <entry+0x108>
+800000f0:	00000f37          	lui	t5,0x0
+800000f4:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+800000f8:	00000fb7          	lui	t6,0x0
+800000fc:	2c3f8f93          	addi	t6,t6,707 # 2c3 <entry-0x7ffffd3d>
+80000100:	01ff2023          	sw	t6,0(t5)
+80000104:	00100073          	ebreak
+80000108:	00229303          	lh	t1,2(t0)
+8000010c:	ffff8eb7          	lui	t4,0xffff8
+80000110:	0ffe8e93          	addi	t4,t4,255 # ffff80ff <__global_pointer$+0x7fff6763>
+80000114:	01d30e63          	beq	t1,t4,80000130 <entry+0x130>
+80000118:	00000f37          	lui	t5,0x0
+8000011c:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000120:	00000fb7          	lui	t6,0x0
+80000124:	2c4f8f93          	addi	t6,t6,708 # 2c4 <entry-0x7ffffd3c>
+80000128:	01ff2023          	sw	t6,0(t5)
+8000012c:	00100073          	ebreak
+80000130:	0022d303          	lhu	t1,2(t0)
+80000134:	00008eb7          	lui	t4,0x8
+80000138:	0ffe8e93          	addi	t4,t4,255 # 80ff <entry-0x7fff7f01>
+8000013c:	01d30e63          	beq	t1,t4,80000158 <entry+0x158>
+80000140:	00000f37          	lui	t5,0x0
+80000144:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000148:	00000fb7          	lui	t6,0x0
+8000014c:	2c5f8f93          	addi	t6,t6,709 # 2c5 <entry-0x7ffffd3b>
+80000150:	01ff2023          	sw	t6,0(t5)
+80000154:	00100073          	ebreak
+80000158:	0002a303          	lw	t1,0(t0)
+8000015c:	80ff8eb7          	lui	t4,0x80ff8
+80000160:	f01e8e93          	addi	t4,t4,-255 # 80ff7f01 <__global_pointer$+0xff6565>
+80000164:	01d30e63          	beq	t1,t4,80000180 <entry+0x180>
+80000168:	00000f37          	lui	t5,0x0
+8000016c:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000170:	00000fb7          	lui	t6,0x0
+80000174:	2c6f8f93          	addi	t6,t6,710 # 2c6 <entry-0x7ffffd3a>
+80000178:	01ff2023          	sw	t6,0(t5)
+8000017c:	00100073          	ebreak
+80000180:	00000f37          	lui	t5,0x0
+80000184:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000188:	00000fb7          	lui	t6,0x0
+8000018c:	001f8f93          	addi	t6,t6,1 # 1 <entry-0x7fffffff>
+80000190:	01ff2023          	sw	t6,0(t5)
+80000194:	00100073          	ebreak
+
+80000198 <test_data>:
+80000198:	7f01                	.insn	2, 0x7f01
+8000019a:	80ff                	.short	0x80ff

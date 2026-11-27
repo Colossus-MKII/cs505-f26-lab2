@@ -1,0 +1,14 @@
+
+build/software/rv32i-illegal.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .init:
+
+80000000 <entry>:
+80000000:	021080b3          	mul	ra,ra,ra
+80000004:	00000f37          	lui	t5,0x0
+80000008:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+8000000c:	00000fb7          	lui	t6,0x0
+80000010:	3e9f8f93          	addi	t6,t6,1001 # 3e9 <entry-0x7ffffc17>
+80000014:	01ff2023          	sw	t6,0(t5)
+80000018:	00100073          	ebreak

@@ -1,0 +1,9 @@
+
+build/software/rv32i-system-ecall.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .init:
+
+80000000 <entry>:
+80000000:	00000073          	ecall
+80000004:	00100073          	ebreak

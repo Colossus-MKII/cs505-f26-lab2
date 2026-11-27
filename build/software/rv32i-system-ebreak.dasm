@@ -1,0 +1,13 @@
+
+build/software/rv32i-system-ebreak.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .init:
+
+80000000 <entry>:
+80000000:	00000f37          	lui	t5,0x0
+80000004:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000008:	00000fb7          	lui	t6,0x0
+8000000c:	001f8f93          	addi	t6,t6,1 # 1 <entry-0x7fffffff>
+80000010:	01ff2023          	sw	t6,0(t5)
+80000014:	00100073          	ebreak

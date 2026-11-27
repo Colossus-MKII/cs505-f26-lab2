@@ -1,0 +1,11 @@
+[INFO] memory wait cycles: 0
+[INFO] reset complete
+Dumping VCD: /tmp/cs505-jw2046-matrix/256/asap7/cpu-multi/popcount.vcd
+MMIO OUT: 0x00000001
+[INFO] Simulation halted on cycle 228 due to exception
+    > EXCEPTION_EBREAK
+TEST_RESULT PASS cycles=228
+- src/rv32i-multi-cycle-single-bus/cpu_tb.v:94: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.053 devel
+- Verilator: $finish at 2us; walltime 0.194 s; speed 11.958 us/s
+- Verilator: cpu 0.193 s on 1 threads; allocated 12 MB

@@ -1,0 +1,138 @@
+
+build/software/rv32i-branch.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .init:
+
+80000000 <entry>:
+80000000:	00700293          	li	t0,7
+80000004:	00700313          	li	t1,7
+80000008:	00628e63          	beq	t0,t1,80000024 <entry+0x24>
+8000000c:	00000f37          	lui	t5,0x0
+80000010:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000014:	00000fb7          	lui	t6,0x0
+80000018:	1f5f8f93          	addi	t6,t6,501 # 1f5 <entry-0x7ffffe0b>
+8000001c:	01ff2023          	sw	t6,0(t5)
+80000020:	00100073          	ebreak
+80000024:	00000393          	li	t2,0
+80000028:	00629463          	bne	t0,t1,80000030 <entry+0x30>
+8000002c:	00138393          	addi	t2,t2,1
+80000030:	00100e93          	li	t4,1
+80000034:	01d38e63          	beq	t2,t4,80000050 <entry+0x50>
+80000038:	00000f37          	lui	t5,0x0
+8000003c:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000040:	00000fb7          	lui	t6,0x0
+80000044:	1f6f8f93          	addi	t6,t6,502 # 1f6 <entry-0x7ffffe0a>
+80000048:	01ff2023          	sw	t6,0(t5)
+8000004c:	00100073          	ebreak
+80000050:	00800313          	li	t1,8
+80000054:	00629e63          	bne	t0,t1,80000070 <entry+0x70>
+80000058:	00000f37          	lui	t5,0x0
+8000005c:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000060:	00000fb7          	lui	t6,0x0
+80000064:	1f7f8f93          	addi	t6,t6,503 # 1f7 <entry-0x7ffffe09>
+80000068:	01ff2023          	sw	t6,0(t5)
+8000006c:	00100073          	ebreak
+80000070:	00000393          	li	t2,0
+80000074:	00628463          	beq	t0,t1,8000007c <entry+0x7c>
+80000078:	00138393          	addi	t2,t2,1
+8000007c:	00100e93          	li	t4,1
+80000080:	01d38e63          	beq	t2,t4,8000009c <entry+0x9c>
+80000084:	00000f37          	lui	t5,0x0
+80000088:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+8000008c:	00000fb7          	lui	t6,0x0
+80000090:	1f8f8f93          	addi	t6,t6,504 # 1f8 <entry-0x7ffffe08>
+80000094:	01ff2023          	sw	t6,0(t5)
+80000098:	00100073          	ebreak
+8000009c:	fff00293          	li	t0,-1
+800000a0:	00100313          	li	t1,1
+800000a4:	0062ce63          	blt	t0,t1,800000c0 <entry+0xc0>
+800000a8:	00000f37          	lui	t5,0x0
+800000ac:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+800000b0:	00000fb7          	lui	t6,0x0
+800000b4:	1f9f8f93          	addi	t6,t6,505 # 1f9 <entry-0x7ffffe07>
+800000b8:	01ff2023          	sw	t6,0(t5)
+800000bc:	00100073          	ebreak
+800000c0:	00000393          	li	t2,0
+800000c4:	0062d463          	bge	t0,t1,800000cc <entry+0xcc>
+800000c8:	00138393          	addi	t2,t2,1
+800000cc:	00100e93          	li	t4,1
+800000d0:	01d38e63          	beq	t2,t4,800000ec <entry+0xec>
+800000d4:	00000f37          	lui	t5,0x0
+800000d8:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+800000dc:	00000fb7          	lui	t6,0x0
+800000e0:	1faf8f93          	addi	t6,t6,506 # 1fa <entry-0x7ffffe06>
+800000e4:	01ff2023          	sw	t6,0(t5)
+800000e8:	00100073          	ebreak
+800000ec:	00535e63          	bge	t1,t0,80000108 <entry+0x108>
+800000f0:	00000f37          	lui	t5,0x0
+800000f4:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+800000f8:	00000fb7          	lui	t6,0x0
+800000fc:	1fbf8f93          	addi	t6,t6,507 # 1fb <entry-0x7ffffe05>
+80000100:	01ff2023          	sw	t6,0(t5)
+80000104:	00100073          	ebreak
+80000108:	00000393          	li	t2,0
+8000010c:	00534463          	blt	t1,t0,80000114 <entry+0x114>
+80000110:	00138393          	addi	t2,t2,1
+80000114:	00100e93          	li	t4,1
+80000118:	01d38e63          	beq	t2,t4,80000134 <entry+0x134>
+8000011c:	00000f37          	lui	t5,0x0
+80000120:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000124:	00000fb7          	lui	t6,0x0
+80000128:	1fcf8f93          	addi	t6,t6,508 # 1fc <entry-0x7ffffe04>
+8000012c:	01ff2023          	sw	t6,0(t5)
+80000130:	00100073          	ebreak
+80000134:	00536e63          	bltu	t1,t0,80000150 <entry+0x150>
+80000138:	00000f37          	lui	t5,0x0
+8000013c:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000140:	00000fb7          	lui	t6,0x0
+80000144:	1fdf8f93          	addi	t6,t6,509 # 1fd <entry-0x7ffffe03>
+80000148:	01ff2023          	sw	t6,0(t5)
+8000014c:	00100073          	ebreak
+80000150:	00000393          	li	t2,0
+80000154:	00537463          	bgeu	t1,t0,8000015c <entry+0x15c>
+80000158:	00138393          	addi	t2,t2,1
+8000015c:	00100e93          	li	t4,1
+80000160:	01d38e63          	beq	t2,t4,8000017c <entry+0x17c>
+80000164:	00000f37          	lui	t5,0x0
+80000168:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+8000016c:	00000fb7          	lui	t6,0x0
+80000170:	1fef8f93          	addi	t6,t6,510 # 1fe <entry-0x7ffffe02>
+80000174:	01ff2023          	sw	t6,0(t5)
+80000178:	00100073          	ebreak
+8000017c:	0062fe63          	bgeu	t0,t1,80000198 <entry+0x198>
+80000180:	00000f37          	lui	t5,0x0
+80000184:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+80000188:	00000fb7          	lui	t6,0x0
+8000018c:	1fff8f93          	addi	t6,t6,511 # 1ff <entry-0x7ffffe01>
+80000190:	01ff2023          	sw	t6,0(t5)
+80000194:	00100073          	ebreak
+80000198:	00000393          	li	t2,0
+8000019c:	0062e463          	bltu	t0,t1,800001a4 <entry+0x1a4>
+800001a0:	00138393          	addi	t2,t2,1
+800001a4:	00100e93          	li	t4,1
+800001a8:	01d38e63          	beq	t2,t4,800001c4 <entry+0x1c4>
+800001ac:	00000f37          	lui	t5,0x0
+800001b0:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+800001b4:	00000fb7          	lui	t6,0x0
+800001b8:	200f8f93          	addi	t6,t6,512 # 200 <entry-0x7ffffe00>
+800001bc:	01ff2023          	sw	t6,0(t5)
+800001c0:	00100073          	ebreak
+800001c4:	00000293          	li	t0,0
+800001c8:	00300313          	li	t1,3
+800001cc:	00128293          	addi	t0,t0,1
+800001d0:	fe62cee3          	blt	t0,t1,800001cc <entry+0x1cc>
+800001d4:	00300e93          	li	t4,3
+800001d8:	01d28e63          	beq	t0,t4,800001f4 <entry+0x1f4>
+800001dc:	00000f37          	lui	t5,0x0
+800001e0:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+800001e4:	00000fb7          	lui	t6,0x0
+800001e8:	201f8f93          	addi	t6,t6,513 # 201 <entry-0x7ffffdff>
+800001ec:	01ff2023          	sw	t6,0(t5)
+800001f0:	00100073          	ebreak
+800001f4:	00000f37          	lui	t5,0x0
+800001f8:	104f0f13          	addi	t5,t5,260 # 104 <entry-0x7ffffefc>
+800001fc:	00000fb7          	lui	t6,0x0
+80000200:	001f8f93          	addi	t6,t6,1 # 1 <entry-0x7fffffff>
+80000204:	01ff2023          	sw	t6,0(t5)
+80000208:	00100073          	ebreak

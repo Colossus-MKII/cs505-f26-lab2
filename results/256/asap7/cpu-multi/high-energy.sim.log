@@ -1,0 +1,26 @@
+[INFO] memory wait cycles: 0
+[INFO] reset complete
+Dumping VCD: /tmp/tmp1m1fgmih/waves.vcd
+[heartbeat] cycle count: 500
+[heartbeat] cycle count: 1000
+[heartbeat] cycle count: 1500
+[heartbeat] cycle count: 2000
+[heartbeat] cycle count: 2500
+[heartbeat] cycle count: 3000
+[heartbeat] cycle count: 3500
+[heartbeat] cycle count: 4000
+[heartbeat] cycle count: 4500
+[heartbeat] cycle count: 5000
+[heartbeat] cycle count: 5500
+[heartbeat] cycle count: 6000
+[heartbeat] cycle count: 6500
+[heartbeat] cycle count: 7000
+[heartbeat] cycle count: 7500
+MMIO OUT: 0x00000001
+[INFO] Simulation halted on cycle 7915 due to exception
+    > EXCEPTION_EBREAK
+TEST_RESULT PASS cycles=7915
+- src/rv32i-multi-cycle-single-bus/cpu_tb.v:94: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.053 devel
+- Verilator: $finish at 79us; walltime 6.741 s; speed 11.749 us/s
+- Verilator: cpu 6.705 s on 1 threads; allocated 12 MB
